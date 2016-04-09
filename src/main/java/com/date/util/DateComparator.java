@@ -8,7 +8,6 @@ public class DateComparator {
             MyDate fromDate = MyDate.of(args[0]);
             MyDate toDate = MyDate.of(args[1]);
             if (args.length == 2 && fromDate != null && toDate != null) {
-                System.out.println(fromDate.getFullDaysTo(toDate));
                 System.exit(0);
             } else {
                 comparator.printUsage();
