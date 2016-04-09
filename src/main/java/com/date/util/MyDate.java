@@ -18,7 +18,7 @@ public final class MyDate {
     // MONTHS - {1 - 12}
     // YEARS - {1901 - 2999}
 
-    private static final Pattern DATE_MATCH_PATTERN = Pattern.compile("^[0-3]\\d\\/[0-1][0-2]\\/[1-2]\\d{3}$");
+    private static final Pattern DATE_MATCH_PATTERN = Pattern.compile("^[0-3]\\d\\/[0-1]\\d\\/[1-2]\\d{3}$");
     private static final List<Integer> MONTHS_WITH_31_DAYS = Arrays.asList(1, 3, 5, 7, 8, 10, 12);
     private static final List<Integer> MONTHS_WITH_30_DAYS = Arrays.asList(9, 4, 6, 11);
 
@@ -29,7 +29,7 @@ public final class MyDate {
         this.year = parts.get(2);
     }
 
-    static MyDate makeFromString(String dayString) {
+    static MyDate of(String dayString) {
         if (!DATE_MATCH_PATTERN.matcher(dayString).matches()) {
             throw new IllegalArgumentException("Invalid date " + dayString);
         }
@@ -46,10 +46,10 @@ public final class MyDate {
             valid = false;
         } else if (MONTHS_WITH_31_DAYS.contains(month) && day > 31) {
             valid = false;
-        } else {
+        } else if (month == 2) {
             if (isLeapYear() && day > 29) {
                 valid = false;
-            } else if (day > 28) {
+            } else if (!isLeapYear() && day > 28) {
                 valid = false;
             }
         }
